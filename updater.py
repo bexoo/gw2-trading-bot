@@ -40,6 +40,7 @@ def getListings():
         try:
             res = requests.get('https://api.guildwars2.com/v2/commerce/listings?page='+count_string+'&page_size=200')
             response = json.loads(res.text)
+            print(res.headers['X-Result-Count'])
         except:
             print(count_string)
             print(res.status_code)
