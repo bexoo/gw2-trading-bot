@@ -77,6 +77,10 @@ def calculate_demand(id, listings):
     return demand
 
 if __name__ == '__main__':
+
+    # TODO: Calculate buy/sell velocity based on net direction of supply/demand movement
+    # TODO: Try to optimize code
+    
     current_datetime = datetime.datetime.now()
     conn = sqlite3.connect('gw2.db')
     cursor = conn.cursor()
@@ -95,6 +99,7 @@ if __name__ == '__main__':
             continue
         supply = calculate_supply(id, listings)
         demand = calculate_demand(id, listings)
+
         cursor.execute("delete from tp where ItemID=?", (id,))
         cursor.execute("insert into tp(ItemID, TopBuyPrice, TopSellPrice, Supply, Demand, LastUpdatedTime) values (?, ?, ?, ?, ?, ?)", (id, top_buy_price, top_sell_price, supply, demand, current_datetime))
 
